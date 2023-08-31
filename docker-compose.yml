@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  stubby:
+    image: mattchis/getdns-stubby:1.7.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stubby
+    volumes:
+      - ./stubby.yml:/usr/local/etc/stubby/stubby.yml:ro
+    networks:
+     - dns
+    ports:
+     - "53:53/udp"
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+
+networks:
+  dns:
